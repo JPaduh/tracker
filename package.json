@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "name": "tracker",
+  "version": "1.0.0",
+  "description": "Job Application Tracker WebApp",
+  "main": "index.js",
+  "scripts": {
+  "dev": "concurrently -k -n BACKEND,FRONTEND \"cd backend && uvicorn main:app --reload --host 0.0.0.0 --port 8000\" \"cd frontend && npm run dev\"",
+  "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JPaduh/tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JPaduh/tracker/issues"
+  },
+  "homepage": "https://github.com/JPaduh/tracker#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
