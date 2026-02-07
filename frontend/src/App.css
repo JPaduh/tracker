@@ -1,42 +1,390 @@
+/* =========================
+   GLOBAL RESET / BASE
+   ========================= */
+
 #root {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background:
+    radial-gradient(900px 500px at 20% 10%, rgba(120,170,255,0.12), transparent 60%),
+    radial-gradient(700px 500px at 85% 20%, rgba(255,255,255,0.06), transparent 60%),
+    #0b0f19;
+  color: #e8eefc;
+}
+
+/* =========================
+   PAGE LAYOUT
+   ========================= */
+
+.page {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 32px 28px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+h1 {
+  margin: 0;
+  font-size: 42px;
+  line-height: 1.1;
+  letter-spacing: 0.2px;
+}
+
+.sub {
+  margin: 10px 0 0;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* =========================
+   GRID LAYOUT
+   ========================= */
+
+.grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 460px 1fr;
+  align-items: start;
+}
+
+@media (max-width: 1050px) {
+  .grid {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+/* =========================
+   CARDS
+   ========================= */
 
 .card {
-  padding: 2em;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
 }
 
-.read-the-docs {
-  color: #888;
+.card h2 {
+  margin: 0 0 14px;
+  font-size: 18px;
+  opacity: 0.9;
 }
+
+/* =========================
+   FORM
+   ========================= */
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.row3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 520px) {
+  .row2,
+  .row3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   INPUTS
+   ========================= */
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 12px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.28);
+  color: #e8eefc;
+  outline: none;
+}
+
+.input::placeholder {
+  opacity: 0.6;
+}
+
+.input:focus {
+  border-color: rgba(120,170,255,0.75);
+  box-shadow: 0 0 0 3px rgba(120,170,255,0.18);
+}
+
+.input.mini {
+  padding: 8px 10px;
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+
+.btn {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #e8eefc;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn:hover {
+  background: rgba(255,255,255,0.10);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn.primary {
+  border-color: rgba(120,170,255,0.60);
+  background: rgba(120,170,255,0.22);
+  font-weight: 700;
+}
+
+.btn.danger {
+  border-color: rgba(255,120,120,0.40);
+  background: rgba(255,120,120,0.12);
+}
+
+/* =========================
+   TABLE
+   ========================= */
+
+.tableWrap {
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+  background: rgba(0,0,0,0.18);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 12px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  vertical-align: middle;
+}
+
+th {
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.7;
+  letter-spacing: 0.2px;
+}
+
+tr:hover td {
+  background: rgba(255,255,255,0.03);
+}
+
+.strong {
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.empty {
+  opacity: 0.7;
+  padding: 16px 10px;
+}
+
+/* =========================
+   STATUS PILLS
+   ========================= */
+
+.pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+}
+
+.pill.Applied {
+  border-color: rgba(120,170,255,0.35);
+}
+
+.pill.Screen {
+  border-color: rgba(180,180,255,0.35);
+}
+
+.pill.Interview {
+  border-color: rgba(255,220,120,0.35);
+}
+
+.pill.Offer {
+  border-color: rgba(120,255,170,0.35);
+}
+
+.pill.Rejected {
+  border-color: rgba(255,120,120,0.35);
+}
+
+/* =========================
+   ERRORS
+   ========================= */
+
+.error {
+  margin-top: 8px;
+  color: #ffb4b4;
+  font-size: 13px;
+}
+
+
+
+/* =========================
+   THEME: DEFAULT
+   ========================= */
+
+body.theme-default {
+  background:
+    radial-gradient(900px 500px at 20% 10%, rgba(120,170,255,0.12), transparent 60%),
+    radial-gradient(700px 500px at 85% 20%, rgba(255,255,255,0.06), transparent 60%),
+    #0b0f19;
+}
+
+/* =========================
+   THEME: THEIA (TACTICAL)
+   ========================= */
+
+body.theme-theia {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.85)
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 255, 170, 0.04),
+      rgba(0, 255, 170, 0.04) 1px,
+      transparent 1px,
+      transparent 24px
+    ),
+    #05080d;
+
+  color: #cfeee3;
+}
+
+/* Cards */
+body.theme-theia .card {
+  background: rgba(0, 20, 16, 0.65);
+  border: 1px solid rgba(0, 255, 170, 0.22);
+  box-shadow: 0 0 0 1px rgba(0,255,170,0.05),
+              0 20px 40px rgba(0,0,0,0.65);
+}
+
+/* Headers */
+body.theme-theia h1 {
+  color: #7affc7;
+}
+
+body.theme-theia .sub {
+  color: rgba(160, 255, 220, 0.65);
+}
+
+/* Inputs */
+body.theme-theia .input {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(0, 255, 170, 0.35);
+  color: #cfeee3;
+}
+
+body.theme-theia .input:focus {
+  border-color: rgba(0, 255, 170, 0.85);
+  box-shadow: 0 0 0 2px rgba(0,255,170,0.25);
+}
+
+/* Buttons */
+body.theme-theia .btn {
+  border-color: rgba(0,255,170,0.35);
+  background: rgba(0,255,170,0.12);
+  color: #7affc7;
+}
+
+body.theme-theia .btn:hover {
+  background: rgba(0,255,170,0.22);
+}
+
+body.theme-theia .btn.primary {
+  background: rgba(0,255,170,0.35);
+  border-color: rgba(0,255,170,0.85);
+  color: #032a1d;
+}
+
+/* Table */
+body.theme-theia .table {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+body.theme-theia th {
+  color: rgba(160,255,220,0.75);
+}
+
+body.theme-theia tr:hover td {
+  background: rgba(0,255,170,0.06);
+}
+
+/* Status pills */
+body.theme-theia .pill {
+  background: rgba(0,255,170,0.12);
+  border-color: rgba(0,255,170,0.45);
+  color: #7affc7;
+}
+

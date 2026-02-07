@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createApp, deleteApp, fetchApps, updateApp } from "./api";
 import "./App.css";
 
+
 const STATUSES = ["Applied", "Screen", "Interview", "Offer", "Rejected"];
 const WORK_MODES = ["Remote", "Hybrid", "Onsite"];
 
@@ -18,7 +19,7 @@ export default function App() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
-
+  const [theme, setTheme] = useState("default");
   const [filters, setFilters] = useState({ q: "", status: "", city: "" });
 
   const [form, setForm] = useState({
@@ -53,6 +54,11 @@ export default function App() {
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    document.body.classList.remove("theme-default", "theme-theia");
+    document.body.classList.add(`theme-${theme}`);
+  }, [theme]);
 
   const uniqueCities = useMemo(() => {
     const s = new Set(rows.map((r) => r.city).filter(Boolean));
@@ -123,6 +129,14 @@ export default function App() {
         </div>
 
         <div className="filters">
+          <button
+            className="btn"
+            onClick={() =>
+              setTheme((t) => (t === "default" ? "theia" : "default"))
+            }
+          >
+            Theme: {theme === "default" ? "Default" : "THEIA"}
+          </button>
           <input
             className="input"
             placeholder="Search company / role / city…"

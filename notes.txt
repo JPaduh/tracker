@@ -1,0 +1,64 @@
+JOB APPLICATION TRACKER – ARCHITECTURE DIAGRAM
+===========================================
+
++---------------------+
+|                     |
+|        React        |
+|   (Frontend / UI)   |
+|                     |
+|  - Forms            |
+|  - Tables           |
+|  - Filters          |
+|  - Theme Toggle     |
+|                     |
++----------+----------+
+           |
+           | HTTP Requests (JSON)
+           |  - Create
+           |  - Read
+           |  - Update
+           |  - Delete
+           v
++----------+----------+
+|                     |
+|      FastAPI        |
+|    (Backend API)    |
+|                     |
+|  - Validates data   |
+|  - Business logic   |
+|  - CRUD operations |
+|                     |
++----------+----------+
+           |
+           | SQL Queries
+           v
++----------+----------+
+|                     |
+|      SQLite         |
+|  (jobtracker.db)    |
+|                     |
+|  - Persistent data  |
+|  - Local storage    |
+|                     |
++---------------------+
+
+
+DATA FLOW SUMMARY
+-----------------
+User Action
+   ↓
+React UI
+   ↓
+FastAPI API Endpoints
+   ↓
+SQLite Database
+   ↓
+FastAPI Response
+   ↓
+React UI Update
+
+
+ONE-LINE EXPLANATION
+--------------------
+React handles the user interface, FastAPI manages application logic and CRUD operations,
+and SQLite stores all job application data locally on disk.
