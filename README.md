@@ -126,3 +126,8 @@ This project demonstrates a practical approach to solving a real-world problem:
 - Leave room for future growth
 
 It is intentionally focused, lightweight, and practical.
+
+
+
+This repository is provided for code review and portfolio purposes.
+It is not intended for installation or production use.
