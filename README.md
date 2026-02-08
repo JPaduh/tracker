@@ -127,6 +127,8 @@ This project demonstrates a practical approach to solving a real-world problem:
 
 It is intentionally focused, lightweight, and practical.
 
+npm run dev
+
 
 
 This repository is provided for code review and portfolio purposes.

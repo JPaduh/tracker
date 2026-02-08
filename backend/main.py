@@ -26,6 +26,41 @@ class Application(SQLModel, table=True):
     contact_email: Optional[str] = None
     notes: Optional[str] = None
 
+class ApplicationCreate(SQLModel):
+    company: str
+    role_title: str
+    city: Optional[str] = None
+    work_mode: str = "Hybrid"
+    status: str = "Applied"
+
+    # accept strings from the browser
+    date_applied: Optional[str] = None
+    last_follow_up: Optional[str] = None
+    next_action_date: Optional[str] = None
+
+    job_link: Optional[str] = None
+    contact_name: Optional[str] = None
+    contact_email: Optional[str] = None
+    notes: Optional[str] = None
+
+
+class ApplicationPatch(SQLModel):
+    company: Optional[str] = None
+    role_title: Optional[str] = None
+    city: Optional[str] = None
+    work_mode: Optional[str] = None
+    status: Optional[str] = None
+
+    # accept strings from the browser
+    date_applied: Optional[str] = None
+    last_follow_up: Optional[str] = None
+    next_action_date: Optional[str] = None
+
+    job_link: Optional[str] = None
+    contact_name: Optional[str] = None
+    contact_email: Optional[str] = None
+    notes: Optional[str] = None
+
 app = FastAPI(title="Job Tracker API")
 
 app.add_middleware(
@@ -70,23 +105,52 @@ def list_applications(
 
         stmt = stmt.order_by(Application.id.desc())
         return session.exec(stmt).all()
+    
+def parse_date(value: Optional[str]) -> Optional[date]:
+    if value is None or value == "":
+        return None
+    return date.fromisoformat(value)
 
 @app.post("/applications", response_model=Application)
-def create_application(app_in: Application):
+def create_application(app_in: ApplicationCreate):
+    app_row = Application(
+        company=app_in.company,
+        role_title=app_in.role_title,
+        city=app_in.city,
+        work_mode=app_in.work_mode,
+        status=app_in.status,
+        date_applied=parse_date(app_in.date_applied),
+        last_follow_up=parse_date(app_in.last_follow_up),
+        next_action_date=parse_date(app_in.next_action_date),
+        job_link=app_in.job_link,
+        contact_name=app_in.contact_name,
+        contact_email=app_in.contact_email,
+        notes=app_in.notes,
+    )
+
     with Session(engine) as session:
-        session.add(app_in)
+        session.add(app_row)
         session.commit()
-        session.refresh(app_in)
-        return app_in
+        session.refresh(app_row)
+        return app_row
 
 @app.put("/applications/{app_id}", response_model=Application)
-def update_application(app_id: int, patch: Application):
+def update_application(app_id: int, patch: ApplicationPatch):
     with Session(engine) as session:
         app_row = session.get(Application, app_id)
         if not app_row:
             raise HTTPException(status_code=404, detail="Application not found")
 
         patch_data = patch.model_dump(exclude_unset=True)
+
+        # handle date strings explicitly
+        if "date_applied" in patch_data:
+            app_row.date_applied = parse_date(patch_data.pop("date_applied"))
+        if "last_follow_up" in patch_data:
+            app_row.last_follow_up = parse_date(patch_data.pop("last_follow_up"))
+        if "next_action_date" in patch_data:
+            app_row.next_action_date = parse_date(patch_data.pop("next_action_date"))
+
         for k, v in patch_data.items():
             if v is not None:
                 setattr(app_row, k, v)

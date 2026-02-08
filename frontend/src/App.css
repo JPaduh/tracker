@@ -3,9 +3,9 @@
    ========================= */
 
 #root {
+  width: 100%;
   margin: 0;
   padding: 0;
-  text-align: left;
 }
 
 body {
@@ -23,9 +23,9 @@ body {
    ========================= */
 
 .page {
-  max-width: 1280px;
+  max-width: min(1500px, calc(100vw - 48px));
   margin: 0 auto;
-  padding: 32px 28px;
+  padding: 28px 24px;
 }
 
 .header {
@@ -51,10 +51,16 @@ h1 {
 }
 
 .filters {
-  display: flex;
+  display: grid;
   gap: 10px;
-  flex-wrap: wrap;
+  grid-template-columns: 1fr 180px 180px auto;
   align-items: center;
+}
+
+@media (max-width: 1100px) {
+  .filters {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* =========================
@@ -64,7 +70,7 @@ h1 {
 .grid {
   display: grid;
   gap: 18px;
-  grid-template-columns: 460px 1fr;
+  grid-template-columns: 520px minmax(0, 1fr);
   align-items: start;
 }
 
@@ -197,16 +203,13 @@ h1 {
    ========================= */
 
 .tableWrap {
-  overflow: auto;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
+  overflow-x: auto;
+  padding-bottom: 6px;
 }
-
 .table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 850px;
-  background: rgba(0,0,0,0.18);
+  min-width: 900px; /* adjust if needed */
 }
 
 th,
@@ -388,3 +391,12 @@ body.theme-theia .pill {
   color: #7affc7;
 }
 
+.link {
+  color: #78aaff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

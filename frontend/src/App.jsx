@@ -285,7 +285,8 @@ export default function App() {
                   <th>Mode</th>
                   <th>Status</th>
                   <th>Applied</th>
-                  <th>Actions</th>
+                  <th>Link</th>
+                  <th>Actions</th>                  
                 </tr>
               </thead>
               <tbody>
@@ -299,6 +300,22 @@ export default function App() {
                       <span className={`pill ${r.status}`}>{r.status}</span>
                     </td>
                     <td>{r.date_applied || "—"}</td>
+                    <td>
+                      {r.job_link ? (
+                        <a
+                          href={r.job_link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link"
+                          title={r.job_link}
+                        >
+                          {new URL(r.job_link).hostname}
+                        </a>
+
+                      ) : (
+                        "—"
+                      )}
+                    </td>
                     <td className="actions">
                       <select
                         className="input mini"
